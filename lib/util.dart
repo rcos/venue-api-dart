@@ -59,16 +59,6 @@ class CookieList{
 }
 
 /*
- * Generic database items always have an immutable id, essentially every
- * item returned from the api is a database item
- */
-class DBItem{
-  String _id;
-  DBItem(this._id);
-  get id => _id;
-}
-
-/*
  * Utility class for making API calls without a ton of parameters
  */
 class APIRequester{
