@@ -11,7 +11,7 @@ main(){
   exAuthenticate();
 }
 
-// Authenticate with username and email
+// Authenticate with email and password
 void exAuthenticate(){
   _api.authenticate("jane@jane.com", "jane").whenComplete((){
     print("Authenticated!");
