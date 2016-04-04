@@ -59,6 +59,16 @@ class CookieList{
 }
 
 /*
+ * Generic database items always have an immutable id, essentially every
+ * item returned from the api is a database item
+ */
+class DBItem{
+  String _id;
+  DBItem(this._id);
+  get id => _id;
+}
+
+/*
  * Utility class for making API calls without a ton of parameters
  */
 class APIRequester{
@@ -101,7 +111,7 @@ class APIRequester{
 Future<dynamic> req(String domain, String endpoint, String method,
                     Map<String,String> urlParams, AuthorizationInfo authInfo,
                     Map payload){
-  Function<Future<Response>> requestFunction;
+  Function requestFunction;
   switch(method.toUpperCase()){
     case "POST":
     requestFunction = new http.Client().post;
@@ -129,10 +139,10 @@ Future<dynamic> req(String domain, String endpoint, String method,
   }else{
     urlParamsString = "";
   }
-  return requestFunction("$domain$endpoint?$urlParamsString",
+  return requestFunction("$domain/api$endpoint?$urlParamsString",
     headers: authInfo.getHeaders(),
     body: payload
-  ).then((Response res){
+  ).then((res){
     return JSON.decode(res.body);
   });
 }
