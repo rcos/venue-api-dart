@@ -1,5 +1,7 @@
 import "auth.dart" as auth;
 import "users.dart" as users;
+import "courses.dart" as courses;
+import "sections.dart" as sections;
 import "types.dart";
 import "util.dart";
 import 'dart:async';
@@ -48,6 +50,27 @@ class VenueAPI{
        withCourses: withCourses,
        withSections: withSections
      );
+   }
+
+   /*
+    * Gets course by id
+    */
+    Future<UserInfo> getCourse(courseId,
+      {bool withSections, bool withSectionInstructors,
+      bool withSectionEnrollmentStatus, String studentId}){
+      return courses.getCourse(api, courseId,
+        withSections: withSections,
+        withSectionInstructors: withSectionInstructors,
+        withSectionEnrollmentStatus: withSectionEnrollmentStatus,
+        studentId: studentId
+      );
+    }
+
+  /*
+   * Gets section for current user
+   */
+   Future<UserInfo> getMySections(){
+     return sections.getMySections(api);
    }
 
 }
