@@ -27,7 +27,7 @@ See the `main.dart` file for more example usage.
 
 * `GET` /users/:id
 * `GET` /courses/:id
-* `POS`T /courses/
+* `POST` /courses/
 * `GET` /sections?onlyUser=me
 * `GET` /sections?onlyUser=:id
 * `GET` /sections
