@@ -54,6 +54,30 @@ class SectionInfo extends DBItem{
 }
 
 /*
+ * Submission Information Object
+ */
+class SubmissionInfo extends DBItem{
+
+  List<String> images;
+  List<UserInfo> authors;
+  List<SectionInfo> sectionEvent;
+  String content;
+  DateTime time;
+  UserInfo submitter;
+  // Location location;
+
+  SubmissionInfo(Map info):super(info["_id"]){
+    images = info['images'];
+    authors = info['authors'].map((Map ui) => new UserInfo(ui));
+    sectionEvent = info['sectionEvent'].map((Map se) => new SectionInfo(se));
+    content = info['content'];
+    time = new DateTime(info['time']);
+    submitter = info['submitter'];
+    // location = new Location(info['location']);
+  }
+}
+
+/*
  * User Information Object
  */
 class UserInfo extends DBItem{
