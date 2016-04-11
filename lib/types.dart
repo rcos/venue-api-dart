@@ -66,5 +66,10 @@ class UserInfo extends DBItem{
     if (info['courses'] != null){
       courses = info['courses'].map((Map ci) => new CourseInfo(ci));
     }
+
+    if (info['courses'] != null){
+      courses = info['courses'].map((Map ci) => new CourseInfo(ci));
+    }
+
   }
 }
