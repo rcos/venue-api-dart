@@ -7,10 +7,10 @@ Future<CourseInfo> getCourse(APIRequester api, String courseId,
   bool withSectionEnrollmentStatus, String studentId}){
   return api.get("/courses/$courseId",
     urlParams: {
-      "withSections": withSections,
-      "withSectionInstructors": withSectionInstructors,
-      "withSectionEnrollmentStatus": withSectionEnrollmentStatus,
-      "studentid": studentId
+      "withSections": withSections.toString(),
+      "withSectionInstructors": withSectionInstructors.toString(),
+      "withSectionEnrollmentStatus": withSectionEnrollmentStatus.toString(),
+      "studentid": studentId.toString()
     }
   ).then((Map res){
     return new CourseInfo(res);

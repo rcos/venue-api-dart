@@ -34,5 +34,30 @@ void exGetMyCourses(){
     me.courses.forEach((CourseInfo course){
       print("${course.name}");
     });
+    exQueryForCourse();
+  });
+}
+
+// Getting course details
+void exQueryForCourse(){
+  _api.getCourse("000000000000000000000010").then((CourseInfo course){
+    print("${course.name} is in the ${course.department} department");
+    exGetMySubmissions();
+  });
+}
+
+// TODO getting sections is currently broken (fix when Venue is fixed)
+// void exGetMySections(){
+//   _api.getMySections().then((List<SectionInfo> sections){
+//   });
+// }
+
+// List everything I've submitted
+void exGetMySubmissions(){
+  _api.getMySubmissions().then((List<SubmissionInfo> submissions){
+    print("I've submitted all of the following...");
+    submissions.forEach((SubmissionInfo submission){
+      print("${submission.content}");
+    });
   });
 }

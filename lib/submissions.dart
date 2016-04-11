@@ -2,11 +2,11 @@ import 'util.dart';
 import 'dart:async';
 import "types.dart";
 
-Future<SubmissionInfo> getMySubmissions(APIRequester api){
+Future<List<SubmissionInfo>> getMySubmissions(APIRequester api){
   return api.get("/submissions/",
   urlParams: {
     "onlyStudent": "me"
-  }).then((Map res){
-    return new SubmissionInfo(res);
+  }).then((List<Map> res){
+    return res.map((Map si) => new SubmissionInfo(si));
   });
 }

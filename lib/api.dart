@@ -41,7 +41,7 @@ class VenueAPI {
   /*
    *  Gets information about requested user
    */
-  Future<UserInfo> getUser(userId, {bool withCourses, bool withSections}) {
+  Future<UserInfo> getUser(String userId, {bool withCourses, bool withSections}) {
     return users.getUser(api, userId,
         withCourses: withCourses, withSections: withSections);
   }
@@ -49,7 +49,7 @@ class VenueAPI {
   /*
     * Gets course by id
     */
-  Future<CourseInfo> getCourse(courseId,
+  Future<CourseInfo> getCourse(String courseId,
       {bool withSections,
       bool withSectionInstructors,
       bool withSectionEnrollmentStatus,
@@ -64,14 +64,14 @@ class VenueAPI {
   /*
    * Gets sections for current user
    */
-  Future<SectionInfo> getMySections() {
+  Future<List<SectionInfo>> getMySections() {
     return sections.getMySections(api);
   }
 
   /*
     * Gets submissions for current user
     */
-  Future<SubmissionInfo> getMySubmissions() {
+  Future<List<SubmissionInfo>> getMySubmissions() {
     return submissions.getMySubmissions(api);
   }
 }

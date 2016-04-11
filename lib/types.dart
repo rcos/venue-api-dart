@@ -34,21 +34,29 @@ class CourseInfo extends DBItem{
  */
 class SectionInfo extends DBItem{
 
-  String enrollmentPolicy, course;
+  String enrollmentPolicy;
+
+  CourseInfo course;
 
   List<int> sectionNumbers;
-  List<String> students;
-  List<String> pendingStudents;
-  List<String> instructors;
+  List<UserInfo> students;
+  List<UserInfo> pendingStudents;
+  List<UserInfo> instructors;
 
   SectionInfo(Map info):super(info["_id"]){
-    course = info['course'];
+    if (info["course"]){
+      course = new CourseInfo(info['course']);
+    }
     enrollmentPolicy = info['enrollmentPolicy'];
-    instructors = info['instructors'];
     sectionNumbers = info['sectionNumbers'];
+    if (info["instructors"]){
+      instructors = info['instructors'].map((Map ui) => new UserInfo(ui));
+    }
+    if (info["students"]){
+      students = info['students'].map((Map ui) => new UserInfo(ui));
+    }
 
-    pendingStudents = info['pendingStudents'];
-    students = info['students'];
+    // pendingStudents = info['pendingStudents'].map((Map ui) => new UserInfo(ui));
 
   }
 }
@@ -60,7 +68,7 @@ class SubmissionInfo extends DBItem{
 
   List<String> images;
   List<UserInfo> authors;
-  List<SectionInfo> sectionEvent;
+  SectionInfo sectionEvent;
   String content;
   DateTime time;
   UserInfo submitter;
@@ -69,9 +77,9 @@ class SubmissionInfo extends DBItem{
   SubmissionInfo(Map info):super(info["_id"]){
     images = info['images'];
     authors = info['authors'].map((Map ui) => new UserInfo(ui));
-    sectionEvent = info['sectionEvent'].map((Map se) => new SectionInfo(se));
+    sectionEvent = new SectionInfo(info['sectionEvent']);
     content = info['content'];
-    time = new DateTime(info['time']);
+    // time = new DateTime(info['time']);
     submitter = info['submitter'];
     // location = new Location(info['location']);
   }

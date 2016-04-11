@@ -67,7 +67,7 @@ class APIRequester{
 
   APIRequester(this.domain, this.authInfo);
 
-  Future<Map> get(String endpoint, {
+  Future<dynamic> get(String endpoint, {
     Map<String, String> urlParams,
     body
   }) => req(domain, endpoint, "GET", urlParams, authInfo, body);
@@ -133,6 +133,11 @@ Future<dynamic> req(String domain, String endpoint, String method,
     headers: authInfo.getHeaders(),
     body: payload
   ).then((res){
-    return JSON.decode(res.body);
+    try{
+      return JSON.decode(res.body);
+    }catch(err){
+      print("ERROR: $method $endpoint");
+      print("RESPONSE: ${res.body}");
+    }
   });
 }
