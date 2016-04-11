@@ -40,4 +40,14 @@ class VenueAPI{
     );
   }
 
+  /*
+   *  Gets information about requested user
+   */
+   Future<UserInfo> getUser(userId, {bool withCourses, bool withSections}){
+     return users.getUser(api, userId,
+       withCourses: withCourses,
+       withSections: withSections
+     );
+   }
+
 }
