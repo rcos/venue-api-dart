@@ -20,16 +20,17 @@ See the `main.dart` file for more example usage.
 
 ## What Works
 
+* Authentication
 * /users/me
 
 ## TODOs
 
-* GET /users/:id
-* GET /courses/:id
-* POST /courses/
-* GET /sections?onlyUser=me
-* GET /sections?onlyUser=:id
-* GET /sections
-* GET /submissions?onlyStudent=me
-* GET /submissions (all options)
-* GET /sectionevents
+* `GET` /users/:id
+* `GET` /courses/:id
+* `POS`T /courses/
+* `GET` /sections?onlyUser=me
+* `GET` /sections?onlyUser=:id
+* `GET` /sections
+* `GET` /submissions?onlyStudent=me
+* `GET` /submissions (all options)
+* `GET` /sectionevents
