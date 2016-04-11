@@ -42,6 +42,13 @@ class SectionInfo extends DBItem{
   List<String> instructors;
 
   SectionInfo(Map info):super(info["_id"]){
+    course = info['course'];
+    enrollmentPolicy = info['enrollmentPolicy'];
+    instructors = info['instructors'];
+    sectionNumbers = info['sectionNumbers'];
+
+    pendingStudents = info['pendingStudents'];
+    students = info['students'];
 
   }
 }
