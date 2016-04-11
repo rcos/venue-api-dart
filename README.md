@@ -22,15 +22,18 @@ See the `main.dart` file for more example usage.
 
 * Authentication
 * /users/me
+* `GET` /users/:id
+* `GET` /courses/:id
+* `GET` /submissions?onlyStudent=me
 
 ## TODOs
 
-* `GET` /users/:id
-* `GET` /courses/:id
 * `POST` /courses/
+* `GET` /submissions (all options)
+* `GET` /sections
+
+## Can't current fix
+
 * `GET` /sections?onlyUser=me
 * `GET` /sections?onlyUser=:id
-* `GET` /sections
-* `GET` /submissions?onlyStudent=me
-* `GET` /submissions (all options)
 * `GET` /sectionevents
