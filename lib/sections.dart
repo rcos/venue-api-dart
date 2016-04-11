@@ -2,7 +2,7 @@ import 'util.dart';
 import 'dart:async';
 import "types.dart";
 
-Future<UserInfo> getMySections(APIRequester api){
+Future<SectionInfo> getMySections(APIRequester api){
   return api.get("/sections",
   urlParams: {
     "onlyCurrentUser": true

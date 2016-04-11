@@ -2,6 +2,7 @@ import "auth.dart" as auth;
 import "users.dart" as users;
 import "courses.dart" as courses;
 import "sections.dart" as sections;
+import "submissions.dart" as submissions;
 import "types.dart";
 import "util.dart";
 import 'dart:async';
@@ -55,7 +56,7 @@ class VenueAPI{
    /*
     * Gets course by id
     */
-    Future<UserInfo> getCourse(courseId,
+    Future<CourseInfo> getCourse(courseId,
       {bool withSections, bool withSectionInstructors,
       bool withSectionEnrollmentStatus, String studentId}){
       return courses.getCourse(api, courseId,
@@ -66,11 +67,19 @@ class VenueAPI{
       );
     }
 
+
   /*
-   * Gets section for current user
+   * Gets sections for current user
    */
-   Future<UserInfo> getMySections(){
+   Future<SectionInfo> getMySections(){
      return sections.getMySections(api);
    }
+
+   /*
+    * Gets submissions for current user
+    */
+    Future<SubmissionInfo> getMySubmissions(){
+      return submissions.getMySubmissions(api);
+    }
 
 }

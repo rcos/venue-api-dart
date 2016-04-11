@@ -2,7 +2,7 @@ import 'util.dart';
 import 'dart:async';
 import "types.dart";
 
-Future<UserInfo> getCourse(APIRequester api, String courseId,
+Future<CourseInfo> getCourse(APIRequester api, String courseId,
   {bool withSections, bool withSectionInstructors,
   bool withSectionEnrollmentStatus, String studentId}){
   return api.get("/courses/$courseId",
