@@ -30,7 +30,11 @@ Future<AuthorizationInfo> getAuthorizationInfo({String domain, String email, Str
           "email": email,
           "password": password
         }
-      ).then((http.Response res) {
+      ).catchError((){
+        // TODO better error msg
+        completer.completeError("Could not log in");
+      })
+      .then((http.Response res) {
         var responseJSON = JSON.decode(res.body);
         auth.setLoginToken(responseJSON["token"]);
         completer.complete(auth);
