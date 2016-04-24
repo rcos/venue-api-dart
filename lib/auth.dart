@@ -8,7 +8,7 @@ import 'util.dart';
  * Returns a partial AuthorizationInfo (without auth token)
  */
 Future<AuthorizationInfo> _getPreAuthSession(String domain){
-  return new http.Client().get("$domain/api/courses")
+  return http.get("$domain/api/courses")
     .then((http.Response res){
       return new AuthorizationInfo(
         cookies: new CookieList(res.headers['set-cookie'])
@@ -23,7 +23,7 @@ Future<AuthorizationInfo> _getPreAuthSession(String domain){
 Future<AuthorizationInfo> getAuthorizationInfo({String domain, String email, String password}){
   var completer = new Completer<AuthorizationInfo>();
   _getPreAuthSession(domain).then((AuthorizationInfo auth){
-    new http.Client()
+    http
       .post("$domain/auth/local",
         headers: auth.getHeaders(),
         body: {

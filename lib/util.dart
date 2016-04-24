@@ -114,21 +114,21 @@ Future<dynamic> req(String domain, String endpoint, String method,
   Function requestFunction;
   switch(method.toUpperCase()){
     case "POST":
-    requestFunction = new http.Client().post;
+    requestFunction = http.post;
     break;
     case "PUT":
-    requestFunction = new http.Client().put;
+    requestFunction = http.put;
     break;
     case "PATCH":
-    requestFunction = new http.Client().patch;
+    requestFunction = http.patch;
     break;
     case "GET":
     requestFunction = (String url, {Map headers, Map body}){
-      return new http.Client().get(url, headers: headers);
+      return http.get(url, headers: headers);
     };
     break;
     case "DELETE":
-    requestFunction = new http.Client().delete;
+    requestFunction = http.delete;
     break;
   }
   String urlParamsString;
