@@ -1,4 +1,5 @@
 name: venue_api_dart
 description: todo
 dependencies:
-  http:
+  flutter:
+    path: /home/seve/lib/flutter/packages/flutter

@@ -1,4 +1,4 @@
-import 'package:http/http.dart' as http;
+import 'package:flutter/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 import 'util.dart';
