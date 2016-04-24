@@ -1,7 +1,17 @@
 import 'package:http/http.dart' as http;
 import 'dart:async';
-import 'dart:io';
 import 'dart:convert';
+
+
+class Cookie{
+  String name, value;
+  Cookie(this.name, this.value);
+  Cookie.fromSetCookieValue(String kv){
+    var ar = kv.split("=");
+    name = ar[0];
+    value = ar[1];
+  }
+}
 
 /*
  * Stores all the information needed to make authenticated requests
