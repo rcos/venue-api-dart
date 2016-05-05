@@ -69,7 +69,7 @@ class SectionInfo extends DBItem{
  */
 class EventInfo extends DBItem{
 
-  String author;
+  String author, title;
   DateTime creationDate;
   String description;
   List<String> imageURLs;
@@ -78,6 +78,7 @@ class EventInfo extends DBItem{
 
   EventInfo(Map info):super(info["_id"]){
     author = info['author'];
+    title = info['title'];
     // creationDate = new DateTime(...); TODO
     description = info['description'];
     imageURLs = info['imageURLs'];
