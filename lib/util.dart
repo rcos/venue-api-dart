@@ -9,7 +9,11 @@ class Cookie{
   Cookie.fromSetCookieValue(String kv){
     var ar = kv.split("=");
     name = ar[0];
-    value = ar[1];
+    if (ar.length != 1){
+      value = ar[1];
+    }else{
+      value = "";
+    }
   }
 }
 
@@ -28,12 +32,16 @@ class AuthorizationInfo{
     loginToken = token;
     cookies["token"] = new Cookie("token", token);
   }
-  Map<String,String> getHeaders(){
-    return {
+  Map<String,String> getHeaders({jsonRequest: false}){
+    var headers = {
       "Cookie" : cookies.toString(),
       "Authorization" : "Bearer $loginToken",
       "X-XSRF-TOKEN" : xsrfToken
     };
+    if (jsonRequest){
+      headers["Content-Type"] = "application/json; charset=utf-8";
+    }
+    return headers;
   }
 }
 
@@ -111,10 +119,13 @@ class APIRequester{
 Future<dynamic> req(String domain, String endpoint, String method,
                     Map<String,String> urlParams, AuthorizationInfo authInfo,
                     Map payload){
+  print("\n\n\n DOMAIN: $domain \n\n\n ENDPOINT: $endpoint \n\n\n METHOD: $method \n\n\n URLPARAMS: $urlParams \n\n\n AUTH: $authInfo \n\n\n PAYLOAD: $payload");
   Function requestFunction;
+  bool jsonRequest = false;
   switch(method.toUpperCase()){
     case "POST":
     requestFunction = http.post;
+    jsonRequest = true;
     break;
     case "PUT":
     requestFunction = http.put;
@@ -140,8 +151,8 @@ Future<dynamic> req(String domain, String endpoint, String method,
     urlParamsString = "";
   }
   return requestFunction("$domain/api$endpoint?$urlParamsString",
-    headers: authInfo.getHeaders(),
-    body: payload
+    headers: authInfo.getHeaders(jsonRequest: jsonRequest),
+    body: JSON.encode(payload)
   ).then((res){
     try{
       return JSON.decode(res.body);

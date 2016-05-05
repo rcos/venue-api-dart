@@ -17,12 +17,17 @@ class VenueAPI {
   // APIRequester object to simplify api requests
   APIRequester api;
 
-  VenueAPI(this.domain);
+  VenueAPI(this.domain){
+    if (domain.endsWith("/")){
+      domain = domain.substring(0,domain.length-1);
+    }
+  }
 
   /*
    * Authentication call, call this before any other API request
    */
   Future authenticate(String email, String password) {
+    print("Sending email:\"$email\" and pw:\"$password\"");
     return auth
         .getAuthorizationInfo(domain: domain, email: email, password: password)
         .then((authInfo) {
