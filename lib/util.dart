@@ -116,7 +116,7 @@ class APIRequester{
  * Utility function for making api requests post-auth, see
  * auth.getAuthorizationInfo for getting authenticated
  */
-Future<dynamic> req(String domain, String endpoint, String method,
+Future<Map> req(String domain, String endpoint, String method,
                     Map<String,String> urlParams, AuthorizationInfo authInfo,
                     Map payload){
   print("\n\n\n DOMAIN: $domain \n\n\n ENDPOINT: $endpoint \n\n\n METHOD: $method \n\n\n URLPARAMS: $urlParams \n\n\n AUTH: $authInfo \n\n\n PAYLOAD: $payload");
@@ -134,7 +134,7 @@ Future<dynamic> req(String domain, String endpoint, String method,
     requestFunction = http.patch;
     break;
     case "GET":
-    requestFunction = (String url, {Map headers, Map body}){
+    requestFunction = (String url, {Map headers, dynamic body}){
       return http.get(url, headers: headers);
     };
     break;
@@ -153,7 +153,7 @@ Future<dynamic> req(String domain, String endpoint, String method,
   return requestFunction("$domain/api$endpoint?$urlParamsString",
     headers: authInfo.getHeaders(jsonRequest: jsonRequest),
     body: JSON.encode(payload)
-  ).then((res){
+  ).then((http.Response res){
     try{
       return JSON.decode(res.body);
     }catch(err){

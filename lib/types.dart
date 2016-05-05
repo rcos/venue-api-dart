@@ -27,6 +27,7 @@ class CourseInfo extends DBItem{
     active = info['active'];
     courseNumber = info['courseNumber'];
   }
+
 }
 
 /*
@@ -44,21 +45,70 @@ class SectionInfo extends DBItem{
   List<UserInfo> instructors;
 
   SectionInfo(Map info):super(info["_id"]){
-    if (info["course"]){
+    if (info.containsKey("course")){
       course = new CourseInfo(info['course']);
     }
     enrollmentPolicy = info['enrollmentPolicy'];
     sectionNumbers = info['sectionNumbers'];
-    if (info["instructors"]){
-      instructors = info['instructors'].map((Map ui) => new UserInfo(ui));
+    if (info.containsKey("instructor")){
+      instructors = info['instructors'].map((Map ui) => new UserInfo(ui)).toList();
     }
-    if (info["students"]){
-      students = info['students'].map((Map ui) => new UserInfo(ui));
+    if (info.containsKey("students")){
+      // The API sometimes returns a string to indicate ids and sometimes
+      // returns an object, I think this should be fixed in the API
+      // students = info['students'].map((Map ui) => new UserInfo(ui)).toList();
     }
 
     // pendingStudents = info['pendingStudents'].map((Map ui) => new UserInfo(ui));
 
   }
+}
+
+/*
+ * Event Information Object
+ */
+class EventInfo extends DBItem{
+
+  String author;
+  DateTime creationDate;
+  String description;
+  List<String> imageURLs;
+  Map location; // TODO location type
+  List<EventAssignment> eventAssignments;
+
+  EventInfo(Map info):super(info["_id"]){
+    author = info['author'];
+    // creationDate = new DateTime(...); TODO
+    description = info['description'];
+    imageURLs = info['imageURLs'];
+    location = info['location'];
+
+    if (info.containsKey("sectionEvents")){
+      eventAssignments = info["sectionEvents"].map((Map evnt) => new EventAssignment(evnt)).toList();
+    }
+  }
+
+}
+
+/*
+ * Event Assignment Information Object
+ */
+class EventAssignment extends DBItem{
+
+  SectionInfo section;
+  String author;
+  DateTime creationDate;
+  String instructions;
+
+  EventAssignment(Map info): super(info["_id"]){
+
+    section = new SectionInfo(info['section']);
+    author = info['author'];
+    // creationDate = new DateTime(...);
+    instructions = info['submissionInstructions'];
+
+  }
+
 }
 
 /*
@@ -94,6 +144,8 @@ class UserInfo extends DBItem{
   bool isInstructor;
 
   List<CourseInfo> courses;
+  List<SectionInfo> sections;
+  List<EventInfo> events;
 
   UserInfo(Map info):super(info['_id']){
 
@@ -102,12 +154,16 @@ class UserInfo extends DBItem{
     email = info['email'];
     role = info['role'];
 
-    if (info['courses'] != null){
-      courses = info['courses'].map((Map ci) => new CourseInfo(ci));
+    if (info.containsKey("courses")){
+      courses = info['courses'].values.map((Map info) => new CourseInfo(info)).toList();
     }
 
-    if (info['courses'] != null){
-      courses = info['courses'].map((Map ci) => new CourseInfo(ci));
+    if (info.containsKey("sections")){
+      sections = info['sections'].map((Map si) => new SectionInfo(si)).toList();
+    }
+
+    if (info.containsKey("events")){
+      events = info['events'].values.map((Map ei) => new EventInfo(ei)).toList();
     }
 
   }

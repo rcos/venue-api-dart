@@ -14,6 +14,7 @@ class TestAppState extends State<TestApp> {
     var venueAPI = new VenueAPI("http://104.131.185.159:9000/");
     venueAPI.authenticate("jane@jane.com", "jane").then((dynamic a){
       print("Authenticated");
+      venueAPI.getMe(withSections:true, withEventSections: true);
     }).catchError((err){
       print("Error while authenticating $err");
     });

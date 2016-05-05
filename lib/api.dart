@@ -38,17 +38,21 @@ class VenueAPI {
   /*
    * Returns information about self for logged in user
    */
-  Future<UserInfo> getMe({bool withCourses, bool withSections}) {
+  Future<UserInfo> getMe({bool withCourses, bool withSections, bool withSectionsCourse, bool withEvents, bool withEventSections}) {
     return users.getMe(api,
-        withCourses: withCourses, withSections: withSections);
+        withCourses: withCourses, withSections: withSections,
+        withSectionsCourse: withSectionsCourse, withEvents: withEvents,
+        withEventSections: withEventSections);
   }
 
   /*
    *  Gets information about requested user
    */
-  Future<UserInfo> getUser(String userId, {bool withCourses, bool withSections}) {
+  Future<UserInfo> getUser(String userId, {bool withCourses, bool withSections, bool withSectionsCourse, bool withEvents, bool withEventSections}) {
     return users.getUser(api, userId,
-        withCourses: withCourses, withSections: withSections);
+        withCourses: withCourses, withSections: withSections,
+        withSectionsCourse: withSectionsCourse, withEvents: withEvents,
+        withEventSections: withEventSections);
   }
 
   /*
